@@ -1,0 +1,14 @@
+---
+
+import {CollectionEntry} from 'astro:content';
+
+interface Props{
+  block: CollectionEntry<"blocks">
+}
+ // the types are not working s
+const {block} = Astro.props;
+
+const {Content} = await block.render();
+
+---
+<Content/>
