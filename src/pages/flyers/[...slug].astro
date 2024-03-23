@@ -11,19 +11,13 @@ export async function getStaticPaths() {
 
 const {entry} = Astro.props;
 const {Content} = await entry.render();
-console.log("entry", entry.data.blocks)
 
 const blocksEntries = await getCollection('blocks', (blockEntry) => {
-  console.log("blockEntry", blockEntry)
 
   return entry.data.blocks.some((block) => {
     return block.slug === blockEntry.slug;
   });
 });
-
-
-
-    console.log("blocksEntries", blocksEntries);
 ---
 
 <html lang="en">
