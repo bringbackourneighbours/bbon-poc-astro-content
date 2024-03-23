@@ -1,6 +1,6 @@
 # Just a quick proof of coocept for content blocks with astro
 
-## 🧞 Commands
+## Getting started
 
 First run `npm ci` once.
 
