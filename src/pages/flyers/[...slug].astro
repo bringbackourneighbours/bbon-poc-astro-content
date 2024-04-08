@@ -1,5 +1,5 @@
 ---
-import {getCollection} from 'astro:content';
+import {getCollection, CollectionEntry} from 'astro:content';
 import Block from "../../Block.astro";
 
 export async function getStaticPaths() {
@@ -12,12 +12,13 @@ export async function getStaticPaths() {
 const {entry} = Astro.props;
 const {Content} = await entry.render();
 
-const blocksEntries = await getCollection('blocks', (blockEntry) => {
-
-  return entry.data.blocks.some((block) => {
-    return block.slug === blockEntry.slug;
-  });
+const blocksCollection = await getCollection('blocks');
+const blocksOfFlyer = (entry as  CollectionEntry<"flyers">).data.blocks.map((blockRef)=>{
+    return blocksCollection.find((block)=>{
+        return block.slug === blockRef.slug;
+    });
 });
+
 ---
 
 <html lang="en">
@@ -34,9 +35,7 @@ const blocksEntries = await getCollection('blocks', (blockEntry) => {
 
 <Content></Content>
 
-{blocksEntries.map((block)=>(
-<Block block={block}></Block>
-))}
+{blocksOfFlyer.map((block) => (<Block block={block}></Block>))}
 
 </body>
 </html>
