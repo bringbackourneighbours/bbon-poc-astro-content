@@ -1,0 +1,21 @@
+---
+import {CollectionEntry} from "astro:content";
+import {getCollection} from "astro:content";
+
+interface Props {
+  ref: string
+}
+
+const {ref} = Astro.props;
+
+const addresses = await getCollection('addresses', (addressEntry)=>{
+  console.log("???",addressEntry, ref)
+  return addressEntry && addressEntry.slug === ref;
+});
+
+const address = addresses[0]
+
+---
+ <a href={address?.data.url}>
+  {address?.data.title}
+ </a>
